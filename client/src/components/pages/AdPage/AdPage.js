@@ -65,7 +65,7 @@ const AdPage = () => {
         {user !== null && user.login === adData.user && (
           <Col xs='12' lg='4'>
             <Link to={'/ad/edit/' + adId}>
-              <Button variant='outline-info' className='m-2'>
+              <Button variant='outline-success' className='m-2'>
                 Edit
               </Button>
             </Link>

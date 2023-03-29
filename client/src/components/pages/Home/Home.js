@@ -31,7 +31,7 @@ const Home = () => {
     <div>
       <Row className='justify-content-end align-items-center my-5'>
         <Col className=''>
-          <h1 className=''>Ads</h1>
+          <h1 className=''> Ads</h1>
         </Col>
         <Col>
           <Form className='d-flex'>
@@ -42,7 +42,7 @@ const Home = () => {
               aria-label='Search'
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button variant='warning' as={Link} to={'/search/' + search}>
+            <Button variant='success' as={Link} to={'/search/' + search}>
               Search
             </Button>
           </Form>
@@ -50,7 +50,7 @@ const Home = () => {
         <Col className='d-flex flex-row-reverse '>
           {user && (
             <Link to='/ad/add'>
-              <Button variant='success'>Add new Ad</Button>{' '}
+              <Button variant='primary'>Add new ad</Button>{' '}
             </Link>
           )}
         </Col>
