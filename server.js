@@ -17,27 +17,19 @@ app.listen(process.env.PORT || 8000, () => {
 connectToDB();
 
 // add middleware
+app.use(cors());
 app.use(express.json());
-if(process.env.NODE_ENV !== 'production') {
-  app.use(
-    cors({
-      origin: ['http://localhost:3000'],
-      methods: ["POST", "PUT", "GET", "OPTIONS", "DELETE", "HEAD"],
-      credentials: true,
-    })
-  );
-}
-
 app.use(express.urlencoded({ extended: false }));
-app.use(session({ 
-  secret: process.env.secret, 
-  store: MongoStore.create(mongoose.connection), 
-  resave: false, 
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-  },
-}));
+
+app.use(
+  session({
+    secret: process.env.secret,
+    resave: false,
+    saveUninitialized: false,
+    mongoUrl: process.env.mongo_url,
+    store: MongoStore.create(mongoose.connection),
+  })
+);
 
 // serve static files from React App
 app.use(express.static(path.join(__dirname, '/client/build')));

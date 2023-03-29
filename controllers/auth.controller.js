@@ -5,31 +5,38 @@ const fs = require('fs');
 
 exports.register = async (req, res) => {
   try {
-  const { login, password, phone } = req.body;
-  const avatar = req.file;
-  const fileType = avatar ? await getImageFileType(avatar) : 'unknown';
+    const { login, password, phone } = req.body;
+    const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
 
     if (
-      login && typeof login === 'string' &&
-      password && typeof password === 'string' &&
-      avatar && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType) &&
-      phone && typeof phone === 'string'
+      login &&
+      typeof login === 'string' &&
+      password &&
+      typeof password === 'string' &&
+      req.file &&
+      ['image/png', 'image/jpeg', 'image/gif'].includes(fileType) &&
+      phone &&
+      typeof phone === 'string'
     ) {
       const userWithLogin = await User.findOne({ login });
-
       if (userWithLogin) {
-        fs.unlinkSync(`./public/uploads/${avatar.filename}`);
-        return res.status(409).send({ message: 'User with this login already exist' });
+        return res
+          .status(409)
+          .send({ message: 'User with this login already exists' });
       }
-
-      const user = await User.create({ login, password: await bcrypt.hash(password, 10), avatar: avatar.filename, phone });
-      res.status(200).send({ message: 'User created ' + user.login });
-
+      const user = await User.create({
+        login,
+        password: await bcrypt.hash(password, 10),
+        avatar: req.file.filename,
+        phone,
+      });
+      res.status(201).send({ message: 'User created ' + user.login });
     } else {
-      fs.unlinkSync(`./public/uploads/${avatar.filename}`);
+      if (req.file) {
+        fs.unlinkSync(`./public/uploads//${req.file.filename}`);
+      }
       res.status(400).send({ message: 'Bad request' });
     }
-
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -38,57 +45,44 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { login, password } = req.body;
-
-    if (login && typeof login === 'string' && password && typeof password === 'string') {
+    if (
+      login &&
+      typeof login === 'string' &&
+      password &&
+      typeof password === 'string'
+    ) {
       const user = await User.findOne({ login });
-
+      console.log(user);
       if (!user) {
-        res.status(400).send({ message: 'Login or password is incorrect'});
+        res.status(400).send({ message: 'Login or password are incorrect' });
       } else {
-
         if (bcrypt.compareSync(password, user.password)) {
-          const userData = { login: user.login, id: user._id };
-          req.session.login = userData;
-          req.session.user = user.id;
-          res.status(200).send({ message: 'Login successful' });
+          req.session.login = user.login;
+          console.log(req.session.login);
+
+          req.session.save();
+          res.status(200).json({ message: 'User logged in ' + user.login });
         } else {
-          res.status(400).send({ message: 'Login or password is incorrect'});
+          res.status(400).send({ message: 'Login or password are incorrect' });
         }
-
       }
-
     } else {
       res.status(400).send({ message: 'Bad request' });
     }
-
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
 
 exports.getUser = async (req, res) => {
-  try {
-    res.send({ message: 'Yeah! I\'m logged' });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
+  res.send("I'm logged");
 };
 
 exports.logout = async (req, res) => {
   try {
     req.session.destroy();
-    res.status(200).send({ message: 'I\'m logout' });
+    res.send('You have successfully logged out');
   } catch (err) {
     res.status(500).send({ message: err.message });
-  }
-};
-
-exports.getUserByLogin = async (req, res) => {
-  try {
-    const user = await User.findOne({ login: req.params.login });
-    if (!user) return res.status(404).json({ message: 'User not found...' });
-    else res.json(user);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
   }
 };

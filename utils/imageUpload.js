@@ -1,16 +1,15 @@
 const multer = require('multer');
 
-const maxSize = 10 * 1024 * 1024; // 10MB
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './public/uploads');
-    },
-    filename: (req, file, cb) => {
-        const [name, ext] = file.originalname.split('.');
-        cb(null, `${name}-${Date.now()}.${ext}`);
-    }
+  destination: (req, file, cb) => {
+    cb(null, './public/uploads');
+  },
+  filename: (req, file, cb) => {
+    const [name, ext] = file.originalname.split('.');
+    cb(null, `${name}-${Date.now()}.${ext}`);
+  },
 });
 
-const imageUpload = multer({ storage, limits: { fileSize: maxSize } });
+const imageUpload = multer({ storage, limits: { fileSize: 1048576 } });
 
 module.exports = imageUpload;
