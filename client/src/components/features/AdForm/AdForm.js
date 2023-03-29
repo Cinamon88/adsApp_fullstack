@@ -94,7 +94,7 @@ const AdForm = ({ action, actionText, ...props }) => {
           })}
           value={localization}
           type='text'
-          placeholder='Enter location'
+          placeholder='Enter localization'
           onChange={(e) => setLocalization(e.target.value)}
         />
         {errors.localization && (
@@ -140,7 +140,7 @@ const AdForm = ({ action, actionText, ...props }) => {
           onChange={(e) => setImage(e.target.files[0])}
         />
       </Form.Group>
-      <Button className='mt-3 warning' as='input' type='submit' value='Add' />{' '}
+      <Button className='mt-3' variant='warning' as='input' type='submit' value='Add' />{' '}
     </Form>
   );
 };

@@ -20,7 +20,7 @@ const CardBox = ({ title, price, localization, image, _id, user }) => {
       />
       <Card.Body>
         <div className={styles.body}>
-          <Card.Title>Price: {price}£</Card.Title>
+          <Card.Title>Price: {price}$</Card.Title>
           <Card.Subtitle className='my-3'>
             <b>{title}</b>
           </Card.Subtitle>
@@ -31,7 +31,7 @@ const CardBox = ({ title, price, localization, image, _id, user }) => {
         <Row>
           <Col>
             <Link to={'/ad/' + _id}>
-              <Button className={styles.button} variant='primary'>
+              <Button className={styles.button} variant='warning'>
                 Read more
               </Button>
             </Link>
