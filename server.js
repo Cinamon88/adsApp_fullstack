@@ -9,6 +9,10 @@ const mongoose = require('mongoose');
 // start express server
 const app = express();
 
+app.listen(process.env.PORT || 8000, () => {
+  console.log('Server is running on port: 8000');
+});
+
 // connect to DB
 connectToDB();
 
@@ -38,10 +42,11 @@ app.use(session({
 // serve static files from React App
 app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/uploads/')));
 
 // add routes
 app.use('/api', require('./routes/ads.routes'));
-app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/auth', require('./routes/auth.routes'));
 
 // at any other link just serve React App
 app.get('*', (req, res) => {
@@ -52,10 +57,7 @@ app.use((req, res) => {
   res.status(404).send({ message: 'Not found...' });
 });
 
-// server
-app.listen(process.env.PORT || 8000, () => {
-  console.log('Server is running on port: 8000');
-});
+
 
 
 
