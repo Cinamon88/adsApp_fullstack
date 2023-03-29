@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getUser } from '../../redux/usersRedux';
+import { getUser } from '../../../redux/usersRedux';
 
 const Header = () => {
   const user = useSelector(getUser);

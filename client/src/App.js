@@ -9,7 +9,7 @@ import Register from './components/pages/Register/Register';
 import Logout from './components/pages/Logout/Logout';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import NotFound from './components/pages/NotFound/NotFound';
-import Header from './components/views/Header';
+import Header from './components/views/Header/Header';
 import Footer from './components/views/Footer/Footer';
 import Container from 'react-bootstrap/Container';
 import { useDispatch } from 'react-redux';
