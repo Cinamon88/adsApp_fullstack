@@ -1,0 +1,44 @@
+{
+  "name": "fullstack_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Cinamon88/adsApp_fullstack.git",
+  "author": "Lukasz Gorka <lukaszgorka@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "run-p start:*",
+    "start:api": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "helmet": "^5.1.1",
+    "mongo-sanitize": "^1.1.0",
+    "mongodb": "^4.8.1",
+    "mongoose": "^7.0.0",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.21",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.7.1"
+  } 
+}
