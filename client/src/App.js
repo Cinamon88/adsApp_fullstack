@@ -7,7 +7,6 @@ import Search from './components/pages/Search/Search';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import Logout from './components/pages/Logout/Logout';
-import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import NotFound from './components/pages/NotFound/NotFound';
 import Header from './components/views/Header/Header';
 import Footer from './components/views/Footer/Footer';
@@ -36,7 +35,6 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/logout' element={<Logout />} />
-          <Route path='/profile' element={<ProfilePage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Container>
