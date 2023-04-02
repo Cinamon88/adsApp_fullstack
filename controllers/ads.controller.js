@@ -55,7 +55,7 @@ exports.createNewAd = async (req, res) => {
       res.status(201).send({ message: 'Add created ' + ad.title });
     } else {
       if (req.file) {
-        fs.unlinkSync(`./public/uploads//${req.file.filename}`);
+        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
       }
       res.status(400).send({ message: 'Bad request' });
     }
